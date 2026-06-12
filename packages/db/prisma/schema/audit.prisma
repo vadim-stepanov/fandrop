@@ -1,0 +1,59 @@
+model AuditLog {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now()) @map("created_at")
+
+  // Acting admin (User.id). Nullable so the trail survives if the user is later
+  // removed; always set at insert.
+  adminUserId String? @map("admin_user_id")
+  admin       User?   @relation(fields: [adminUserId], references: [id], onDelete: SetNull)
+
+  // Artist scope. Nullable + SetNull to keep history if the artist is removed.
+  artistId String? @map("artist_id")
+  artist   Artist? @relation(fields: [artistId], references: [id], onDelete: SetNull)
+
+  action     AuditAction
+  entityType AuditEntityType @map("entity_type")
+  entityId   String          @map("entity_id")
+
+  // Row snapshots: beforePayload null for CREATE, afterPayload null for DELETE.
+  beforePayload Json?   @map("before_payload")
+  afterPayload  Json?   @map("after_payload")
+  // Optional admin-supplied reason (adjust-points note, wipe rationale, etc.).
+  reason        String?
+
+  @@index([artistId, createdAt(sort: Desc)])
+  @@index([adminUserId, createdAt(sort: Desc)])
+  @@index([entityType, entityId])
+  @@index([createdAt(sort: Desc)])
+  @@map("audit_logs")
+}
+
+enum AuditAction {
+  CREATE
+  UPDATE
+  DELETE
+  ADJUST_POINTS
+  WIPE_USER
+  UPDATE_SETTINGS
+
+  @@map("audit_action")
+}
+
+enum AuditEntityType {
+  ARTIST_USER
+  ARTIST_HOME_SECTION
+  ARTIST_PROMO_VARIANT
+  ARTIST_RULE_ITEM
+  ARTIST_PARTNER_ITEM
+  ARTIST_STORE_ITEM
+  ARTIST_QUEST
+  ARTIST_SOCIAL_LINK
+  ARTIST_LEADERBOARD_CONFIG
+  ARTIST_REFERRAL_SETTINGS
+  ARTIST_POINTS_TRANSACTION
+  ARTIST_INVENTORY_ITEM
+  ARTIST
+  ARTIST_ADMIN_GRANT
+
+  @@map("audit_entity_type")
+}

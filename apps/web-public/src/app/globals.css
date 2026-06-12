@@ -1,0 +1,161 @@
+@import "tailwindcss";
+
+/* Public visual system (ported from the closed reference's Lovable palette and
+   recoloured to the FanDrop brand: primary yellow → violet; legendary rarity
+   stays gold). Light-only, warm cream background + dark navbar. Tailwind v4
+   @theme with direct hex (most reliable for utility generation). */
+@theme {
+  --color-background: #f7f6f2;
+  --color-foreground: #1a1919;
+
+  --color-card: #ffffff;
+  --color-card-foreground: #1a1919;
+
+  --color-popover: #ffffff;
+  --color-popover-foreground: #1a1919;
+
+  /* FanDrop brand — violet. */
+  --color-primary: #7c3aed;
+  --color-primary-foreground: #ffffff;
+  --color-primary-hover: #6d28d9;
+  --color-primary-soft: #f3e8ff;
+
+  --color-secondary: #e2e1dc;
+  --color-secondary-foreground: #1a1919;
+
+  --color-muted: #edece6;
+  --color-muted-foreground: #686665;
+
+  --color-accent: #e2e1dc;
+  --color-accent-foreground: #1a1919;
+
+  --color-destructive: #ef4444;
+  --color-destructive-foreground: #ffffff;
+
+  --color-border: #e2e1dc;
+  --color-input: #e2e1dc;
+  --color-ring: #7c3aed;
+
+  /* Dark top navbar (public). */
+  --color-navbar: #111110;
+  --color-navbar-foreground: #ffffff;
+
+  /* Store rarity tiers (game-like itemisation). Legendary stays gold. */
+  --color-rarity-common: #6b7280;
+  --color-rarity-rare: #3b82f6;
+  --color-rarity-epic: #a855f7;
+  --color-rarity-legendary: #fdb813;
+
+  /* Loyalty points are money-like → gold (coins/lightning read better gold
+     than the violet brand). */
+  --color-points: #f5b125;
+
+  /* Leaderboard rank accents. */
+  --color-rank-gold: #f5b125;
+  --color-rank-silver: #a8afb8;
+  --color-rank-bronze: #a66a2a;
+  --color-user-highlight: #e3f0ff;
+
+  --radius-sm: calc(0.625rem * 0.6);
+  --radius-md: calc(0.625rem * 0.8);
+  --radius-lg: 0.625rem;
+  --radius-xl: calc(0.625rem * 1.4);
+  --radius-2xl: calc(0.625rem * 1.8);
+  --radius-3xl: calc(0.625rem * 2.2);
+
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --font-heading: var(--font-poppins);
+  --font-body: var(--font-poppins);
+}
+
+/* Public visual is light-only. */
+html {
+  color-scheme: light;
+}
+body {
+  background: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-poppins), Arial, Helvetica, sans-serif;
+  /* `clip` (not `hidden`) keeps `position: sticky` working for descendants on
+     iOS Safari while still preventing horizontal scroll. */
+  overflow-x: clip;
+}
+
+/* Brand CTA glow (violet). */
+.brand-glow {
+  box-shadow: 0 4px 20px rgba(124, 58, 237, 0.4);
+}
+.brand-glow:hover {
+  box-shadow: 0 6px 28px rgba(124, 58, 237, 0.55);
+}
+
+/* Legendary store card glow (gold). */
+.legendary-glow {
+  box-shadow: 0 0 16px rgba(253, 184, 19, 0.35);
+  border-color: #fdb813;
+}
+
+/* Scrollbar-less horizontal track (partners marquee). */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Partners marquee. */
+@keyframes fd-marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+.animate-marquee {
+  animation: fd-marquee 20s linear infinite;
+}
+
+/* Page fade-in on artist route changes (applied to <main> so it re-runs per
+   navigation). */
+@keyframes fd-page-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(2px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.page-fade-in {
+  animation: fd-page-fade-in 350ms ease-out;
+}
+
+/* Purchase dialog: rank cards fade/scale in. */
+@keyframes fd-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.animate-fade-in {
+  animation: fd-fade-in 300ms ease-out;
+}
+@keyframes fd-scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+.animate-scale-in {
+  animation: fd-scale-in 300ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}

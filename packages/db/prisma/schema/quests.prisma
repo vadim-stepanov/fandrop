@@ -1,0 +1,56 @@
+// Per-artist quests (QUESTS home section). "Visit a link → claim points" — a
+// deliberately simple, instant-complete flow (no real verification). Mirrors
+// ArtistStoreItem: featuredPos > 0 shows on Home; availableAt is the Coming-Soon
+// gate (same role as ArtistStoreItem.salesStartAt). Reward is points only.
+model ArtistQuest {
+  id           String    @id @default(cuid())
+  sectionId    String    @map("section_id")
+  title        String
+  description  String?
+  link         String
+  imageUrl     String?   @map("image_url")
+  rewardPoints Int       @default(0) @map("reward_points")
+  availableAt  DateTime? @map("available_at")
+  featuredPos  Int       @default(0) @map("featured_pos")
+  isVisible    Boolean   @default(true) @map("is_visible")
+  createdAt    DateTime  @default(now()) @map("created_at")
+  updatedAt    DateTime  @updatedAt @map("updated_at")
+
+  section    ArtistHomeSection @relation(fields: [sectionId], references: [id], onDelete: Cascade)
+  userQuests ArtistUserQuest[]
+
+  @@index([sectionId, createdAt])
+  @@index([sectionId, featuredPos])
+  @@map("artist_quests")
+}
+
+// Per-membership quest progress. NOT_STARTED = no row. Start → COMPLETED (instant),
+// then a manual Claim → CLAIMED (one QUEST_REWARD ledger entry). IN_PROGRESS is
+// reserved (unused for now — quests complete on the first click).
+model ArtistUserQuest {
+  id           String      @id @default(cuid())
+  artistUserId String      @map("artist_user_id")
+  questId      String      @map("quest_id")
+  status       QuestStatus
+  startedAt    DateTime?   @map("started_at")
+  completedAt  DateTime?   @map("completed_at")
+  claimedAt    DateTime?   @map("claimed_at")
+  createdAt    DateTime    @default(now()) @map("created_at")
+  updatedAt    DateTime    @updatedAt @map("updated_at")
+
+  artistUser ArtistUser  @relation(fields: [artistUserId], references: [id], onDelete: Cascade)
+  quest      ArtistQuest @relation(fields: [questId], references: [id], onDelete: Cascade)
+
+  @@unique([artistUserId, questId])
+  @@index([artistUserId])
+  @@map("artist_user_quests")
+}
+
+enum QuestStatus {
+  NOT_STARTED
+  IN_PROGRESS
+  COMPLETED
+  CLAIMED
+
+  @@map("quest_status")
+}

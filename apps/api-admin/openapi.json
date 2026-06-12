@@ -1,0 +1,3038 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/api/v1/audit": {
+      "get": {
+        "operationId": "listAudit",
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "action",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "entityType",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuditPageResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": ["Audit"]
+      }
+    },
+    "/api/v1/artist": {
+      "get": {
+        "operationId": "getArtistSettings",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ArtistSettingsResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": ["ArtistSettings"]
+      },
+      "patch": {
+        "operationId": "updateArtistSettings",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateArtistSettingsDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": ["ArtistSettings"]
+      }
+    },
+    "/api/v1/artist/admins": {
+      "get": {
+        "operationId": "listArtistAdmins",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminsListResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": ["ArtistSettings"]
+      },
+      "post": {
+        "operationId": "addArtistAdmin",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddAdminDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AddAdminResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": ["ArtistSettings"]
+      }
+    },
+    "/api/v1/artist/admins/grants/{id}": {
+      "delete": {
+        "operationId": "cancelArtistAdminGrant",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": ["ArtistSettings"]
+      }
+    },
+    "/api/v1/me": {
+      "get": {
+        "operationId": "me",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MeResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": ["Me"]
+      }
+    },
+    "/api/v1/home/sections": {
+      "get": {
+        "operationId": "listHomeSections",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/HomeSectionResponseDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": ["Home"]
+      }
+    },
+    "/api/v1/home/sections/{id}": {
+      "patch": {
+        "operationId": "updateHomeSection",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateHomeSectionDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HomeSectionResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": ["Home"]
+      }
+    },
+    "/api/v1/leaderboard-config": {
+      "get": {
+        "operationId": "getLeaderboardConfig",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LeaderboardConfigResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": ["Leaderboard"]
+      },
+      "patch": {
+        "operationId": "updateLeaderboardConfig",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateLeaderboardConfigDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LeaderboardConfigResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": ["Leaderboard"]
+      }
+    },
+    "/api/v1/home/rules": {
+      "get": {
+        "operationId": "listRules",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/RuleResponseDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": ["Rules"]
+      },
+      "post": {
+        "operationId": "createRule",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateRuleDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RuleResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": ["Rules"]
+      }
+    },
+    "/api/v1/home/rules/{id}": {
+      "patch": {
+        "operationId": "updateRule",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateRuleDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RuleResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": ["Rules"]
+      },
+      "delete": {
+        "operationId": "deleteRule",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": ["Rules"]
+      }
+    },
+    "/api/v1/home/promo": {
+      "get": {
+        "operationId": "listPromoVariants",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PromoResponseDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": ["Promo"]
+      },
+      "post": {
+        "operationId": "createPromoVariant",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreatePromoDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PromoResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": ["Promo"]
+      }
+    },
+    "/api/v1/home/promo/{id}": {
+      "patch": {
+        "operationId": "updatePromoVariant",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdatePromoDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PromoResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": ["Promo"]
+      },
+      "delete": {
+        "operationId": "deletePromoVariant",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": ["Promo"]
+      }
+    },
+    "/api/v1/home/promo/{id}/active": {
+      "post": {
+        "operationId": "setPromoActive",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PromoResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": ["Promo"]
+      }
+    },
+    "/api/v1/uploads/image": {
+      "post": {
+        "operationId": "uploadImage",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UploadResultResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": ["Uploads"]
+      }
+    },
+    "/api/v1/uploads/video": {
+      "post": {
+        "operationId": "uploadVideo",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UploadResultResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": ["Uploads"]
+      }
+    },
+    "/api/v1/home/partners": {
+      "get": {
+        "operationId": "listPartnerItems",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PartnerResponseDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": ["Partners"]
+      },
+      "post": {
+        "operationId": "createPartnerItem",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreatePartnerDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PartnerResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": ["Partners"]
+      }
+    },
+    "/api/v1/home/partners/{id}": {
+      "patch": {
+        "operationId": "updatePartnerItem",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdatePartnerDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PartnerResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": ["Partners"]
+      },
+      "delete": {
+        "operationId": "deletePartnerItem",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": ["Partners"]
+      }
+    },
+    "/api/v1/store": {
+      "get": {
+        "operationId": "listStoreItems",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/StoreItemResponseDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": ["Store"]
+      },
+      "post": {
+        "operationId": "createStoreItem",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateStoreItemDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StoreItemResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": ["Store"]
+      }
+    },
+    "/api/v1/store/{id}": {
+      "patch": {
+        "operationId": "updateStoreItem",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateStoreItemDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StoreItemResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": ["Store"]
+      },
+      "delete": {
+        "operationId": "deleteStoreItem",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": ["Store"]
+      }
+    },
+    "/api/v1/quests": {
+      "get": {
+        "operationId": "listQuests",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/QuestResponseDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": ["Quests"]
+      },
+      "post": {
+        "operationId": "createQuest",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateQuestDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuestResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": ["Quests"]
+      }
+    },
+    "/api/v1/quests/{id}": {
+      "patch": {
+        "operationId": "updateQuest",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateQuestDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuestResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": ["Quests"]
+      },
+      "delete": {
+        "operationId": "deleteQuest",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": ["Quests"]
+      }
+    },
+    "/api/v1/social-links": {
+      "get": {
+        "operationId": "listSocialLinks",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ArtistSocialLinkResponseDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": ["SocialLinks"]
+      },
+      "post": {
+        "operationId": "createSocialLink",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateSocialLinkDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ArtistSocialLinkResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": ["SocialLinks"]
+      }
+    },
+    "/api/v1/social-links/catalog": {
+      "get": {
+        "operationId": "listSocialPlatformCatalog",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SocialPlatformResponseDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": ["SocialLinks"]
+      }
+    },
+    "/api/v1/social-links/{id}": {
+      "patch": {
+        "operationId": "updateSocialLink",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateSocialLinkDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ArtistSocialLinkResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": ["SocialLinks"]
+      },
+      "delete": {
+        "operationId": "deleteSocialLink",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": ["SocialLinks"]
+      }
+    },
+    "/api/v1/referral-settings": {
+      "get": {
+        "operationId": "getReferralSettings",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReferralSettingsResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": ["Referral"]
+      },
+      "patch": {
+        "operationId": "updateReferralSettings",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateReferralSettingsDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReferralSettingsResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": ["Referral"]
+      }
+    },
+    "/api/v1/users": {
+      "get": {
+        "operationId": "listUsers",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AdminUserResponseDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": ["Users"]
+      }
+    },
+    "/api/v1/users/{id}": {
+      "delete": {
+        "operationId": "deleteUser",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": ["Users"]
+      }
+    },
+    "/api/v1/users/{id}/adjust-points": {
+      "post": {
+        "operationId": "adjustUserPoints",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AdjustPointsDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": ["Users"]
+      }
+    },
+    "/api/v1/users/{id}/transactions": {
+      "get": {
+        "operationId": "listUserTransactions",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionPageResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": ["Users"]
+      },
+      "delete": {
+        "operationId": "hideAllUserTransactions",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": ["Users"]
+      }
+    },
+    "/api/v1/users/{id}/transactions/{txId}": {
+      "delete": {
+        "operationId": "hideUserTransaction",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "txId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": ["Users"]
+      }
+    },
+    "/api/v1/users/{id}/inventory": {
+      "post": {
+        "operationId": "grantUserInventory",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GrantInventoryDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": ["Users"]
+      },
+      "get": {
+        "operationId": "listUserInventory",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/InventoryItemResponseDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": ["Users"]
+      }
+    },
+    "/api/v1/users/{id}/inventory/{itemId}": {
+      "delete": {
+        "operationId": "deleteUserInventory",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "itemId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": ["Users"]
+      }
+    },
+    "/api/v1/users/{id}/quests": {
+      "get": {
+        "operationId": "listMemberQuests",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MemberQuestResponseDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": ["Users"]
+      }
+    },
+    "/api/v1/users/{id}/quests/{questId}": {
+      "patch": {
+        "operationId": "setMemberQuestStatus",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "questId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SetMemberQuestStatusDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": ["Users"]
+      }
+    },
+    "/api/v1/users/{id}/quests/{questId}/claim": {
+      "post": {
+        "operationId": "claimMemberQuest",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "questId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": ["Users"]
+      }
+    },
+    "/api/health": {
+      "get": {
+        "operationId": "check",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": ["Health"]
+      }
+    }
+  },
+  "info": {
+    "title": "FanDrop Admin API",
+    "description": "Admin backend: artist-scoped CRUD, moderation, uploads",
+    "version": "1.0",
+    "contact": {}
+  },
+  "tags": [],
+  "servers": [],
+  "components": {
+    "securitySchemes": {
+      "bearer": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "type": "http"
+      }
+    },
+    "schemas": {
+      "AuditEntryDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "adminEmail": {
+            "type": "string",
+            "nullable": true
+          },
+          "action": {
+            "type": "string"
+          },
+          "entityType": {
+            "type": "string"
+          },
+          "entityId": {
+            "type": "string"
+          },
+          "reason": {
+            "type": "string",
+            "nullable": true
+          },
+          "beforePayload": {
+            "type": "object",
+            "nullable": true,
+            "description": "Row snapshot before the change"
+          },
+          "afterPayload": {
+            "type": "object",
+            "nullable": true,
+            "description": "Row snapshot after the change"
+          }
+        },
+        "required": [
+          "id",
+          "createdAt",
+          "adminEmail",
+          "action",
+          "entityType",
+          "entityId",
+          "reason",
+          "beforePayload",
+          "afterPayload"
+        ]
+      },
+      "AuditPageResponseDto": {
+        "type": "object",
+        "properties": {
+          "entries": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AuditEntryDto"
+            }
+          },
+          "page": {
+            "type": "number"
+          },
+          "totalPages": {
+            "type": "number"
+          }
+        },
+        "required": ["entries", "page", "totalPages"]
+      },
+      "ArtistSettingsResponseDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "slug": {
+            "type": "string"
+          },
+          "logoUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "signupBonusPoints": {
+            "type": "number",
+            "description": "Points granted to a fan on first join (awarding wired later)"
+          },
+          "adminCount": {
+            "type": "number",
+            "description": "Number of admins on this artist"
+          }
+        },
+        "required": ["name", "slug", "logoUrl", "signupBonusPoints", "adminCount"]
+      },
+      "UpdateArtistSettingsDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 120
+          },
+          "logoUrl": {
+            "type": "string",
+            "nullable": true,
+            "description": "Logo URL, empty clears it"
+          },
+          "signupBonusPoints": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000000
+          }
+        },
+        "required": ["name", "signupBonusPoints"]
+      },
+      "AdminEntryDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": ["id", "email", "createdAt"]
+      },
+      "PendingGrantDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": ["id", "email", "createdAt"]
+      },
+      "AdminsListResponseDto": {
+        "type": "object",
+        "properties": {
+          "admins": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AdminEntryDto"
+            }
+          },
+          "pending": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PendingGrantDto"
+            }
+          }
+        },
+        "required": ["admins", "pending"]
+      },
+      "AddAdminDto": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "Email to grant artist-admin access"
+          }
+        },
+        "required": ["email"]
+      },
+      "AddAdminResponseDto": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": ["instant", "pending"]
+          }
+        },
+        "required": ["status"]
+      },
+      "MeUserDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "avatarUrl": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "required": ["id", "email", "avatarUrl"]
+      },
+      "MeArtistDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "slug": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "required": ["id", "slug", "name"]
+      },
+      "MeResponseDto": {
+        "type": "object",
+        "properties": {
+          "user": {
+            "$ref": "#/components/schemas/MeUserDto"
+          },
+          "artist": {
+            "$ref": "#/components/schemas/MeArtistDto"
+          }
+        },
+        "required": ["user", "artist"]
+      },
+      "ArtistHomeSectionKey": {
+        "type": "string",
+        "enum": ["PROMO", "RULES", "STORE", "LEADERBOARD", "PARTNERS", "QUESTS"]
+      },
+      "HomeSectionResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "key": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ArtistHomeSectionKey"
+              }
+            ]
+          },
+          "isVisible": {
+            "type": "boolean"
+          },
+          "sortOrder": {
+            "type": "number"
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "subtitle": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "required": ["id", "key", "isVisible", "sortOrder", "title", "subtitle"]
+      },
+      "UpdateHomeSectionDto": {
+        "type": "object",
+        "properties": {
+          "isVisible": {
+            "type": "boolean"
+          },
+          "sortOrder": {
+            "type": "number",
+            "minimum": 0
+          },
+          "title": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 120
+          },
+          "subtitle": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 300
+          }
+        }
+      },
+      "LeaderboardConfigResponseDto": {
+        "type": "object",
+        "properties": {
+          "topExpandedCount": {
+            "type": "number",
+            "minimum": 1,
+            "maximum": 10
+          },
+          "visibleUserCount": {
+            "type": "number",
+            "minimum": 10,
+            "maximum": 50
+          },
+          "expandedByDefault": {
+            "type": "boolean"
+          }
+        },
+        "required": ["topExpandedCount", "visibleUserCount", "expandedByDefault"]
+      },
+      "UpdateLeaderboardConfigDto": {
+        "type": "object",
+        "properties": {
+          "topExpandedCount": {
+            "type": "number",
+            "minimum": 1,
+            "maximum": 10
+          },
+          "visibleUserCount": {
+            "type": "number",
+            "minimum": 10,
+            "maximum": 50
+          },
+          "expandedByDefault": {
+            "type": "boolean"
+          }
+        }
+      },
+      "RuleResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "body": {
+            "type": "string",
+            "nullable": true
+          },
+          "stepNumber": {
+            "type": "number"
+          },
+          "isVisible": {
+            "type": "boolean"
+          }
+        },
+        "required": ["id", "title", "body", "stepNumber", "isVisible"]
+      },
+      "CreateRuleDto": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "maxLength": 30
+          },
+          "body": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 90
+          },
+          "stepNumber": {
+            "type": "number",
+            "minimum": 0
+          },
+          "isVisible": {
+            "type": "boolean",
+            "default": true
+          }
+        },
+        "required": ["title"]
+      },
+      "UpdateRuleDto": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "maxLength": 30
+          },
+          "body": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 90
+          },
+          "stepNumber": {
+            "type": "number",
+            "minimum": 0
+          },
+          "isVisible": {
+            "type": "boolean",
+            "default": true
+          }
+        }
+      },
+      "PromoResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "subtitle": {
+            "type": "string",
+            "nullable": true
+          },
+          "ctaLabel": {
+            "type": "string",
+            "nullable": true
+          },
+          "ctaUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "ctaText": {
+            "type": "string",
+            "nullable": true
+          },
+          "bannerUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "videoUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "bannerUrlAnon": {
+            "type": "string",
+            "nullable": true
+          },
+          "eyebrow": {
+            "type": "string",
+            "nullable": true
+          },
+          "timerEndsAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "isActive": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "title",
+          "subtitle",
+          "ctaLabel",
+          "ctaUrl",
+          "ctaText",
+          "bannerUrl",
+          "videoUrl",
+          "bannerUrlAnon",
+          "eyebrow",
+          "timerEndsAt",
+          "isActive"
+        ]
+      },
+      "CreatePromoDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 80
+          },
+          "title": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 160
+          },
+          "subtitle": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 300
+          },
+          "ctaLabel": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 80
+          },
+          "ctaUrl": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 500
+          },
+          "ctaText": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 120
+          },
+          "bannerUrl": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 500
+          },
+          "videoUrl": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 500
+          },
+          "bannerUrlAnon": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 500
+          },
+          "eyebrow": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 80
+          },
+          "timerEndsAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          }
+        },
+        "required": ["name"]
+      },
+      "UpdatePromoDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 80
+          },
+          "title": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 160
+          },
+          "subtitle": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 300
+          },
+          "ctaLabel": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 80
+          },
+          "ctaUrl": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 500
+          },
+          "ctaText": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 120
+          },
+          "bannerUrl": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 500
+          },
+          "videoUrl": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 500
+          },
+          "bannerUrlAnon": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 500
+          },
+          "eyebrow": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 80
+          },
+          "timerEndsAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          }
+        }
+      },
+      "UploadResultResponseDto": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "description": "Public URL of the uploaded file (served at /uploads)."
+          }
+        },
+        "required": ["url"]
+      },
+      "PartnerResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "logoUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "externalUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "isVisible": {
+            "type": "boolean"
+          },
+          "sortOrder": {
+            "type": "number"
+          }
+        },
+        "required": ["id", "name", "logoUrl", "externalUrl", "isVisible", "sortOrder"]
+      },
+      "CreatePartnerDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 120
+          },
+          "logoUrl": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 500
+          },
+          "externalUrl": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 500
+          },
+          "isVisible": {
+            "type": "boolean",
+            "default": true
+          },
+          "sortOrder": {
+            "type": "number",
+            "minimum": 0
+          }
+        },
+        "required": ["name"]
+      },
+      "UpdatePartnerDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 120
+          },
+          "logoUrl": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 500
+          },
+          "externalUrl": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 500
+          },
+          "isVisible": {
+            "type": "boolean",
+            "default": true
+          },
+          "sortOrder": {
+            "type": "number",
+            "minimum": 0
+          }
+        }
+      },
+      "StoreItemResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "imageUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "category": {
+            "type": "string",
+            "enum": ["MERCH", "DIGITAL", "EXPERIENCES"]
+          },
+          "quality": {
+            "type": "string",
+            "enum": ["COMMON", "RARE", "EPIC", "LEGENDARY"]
+          },
+          "priceMode": {
+            "type": "string",
+            "enum": ["MONEY", "POINTS"]
+          },
+          "priceAmountCents": {
+            "type": "number",
+            "nullable": true
+          },
+          "currencyCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "pointsPrice": {
+            "type": "number",
+            "nullable": true
+          },
+          "loyaltyPoints": {
+            "type": "number"
+          },
+          "stockCount": {
+            "type": "number",
+            "nullable": true
+          },
+          "leftAlert": {
+            "type": "number",
+            "nullable": true
+          },
+          "salesStartAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "featuredPos": {
+            "type": "number"
+          },
+          "isVisible": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "imageUrl",
+          "category",
+          "quality",
+          "priceMode",
+          "priceAmountCents",
+          "currencyCode",
+          "pointsPrice",
+          "loyaltyPoints",
+          "stockCount",
+          "leftAlert",
+          "salesStartAt",
+          "featuredPos",
+          "isVisible"
+        ]
+      },
+      "CreateStoreItemDto": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "maxLength": 160
+          },
+          "imageUrl": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 500
+          },
+          "category": {
+            "type": "string",
+            "enum": ["MERCH", "DIGITAL", "EXPERIENCES"]
+          },
+          "quality": {
+            "type": "string",
+            "enum": ["COMMON", "RARE", "EPIC", "LEGENDARY"],
+            "default": "COMMON"
+          },
+          "priceMode": {
+            "type": "string",
+            "enum": ["MONEY", "POINTS"],
+            "default": "MONEY"
+          },
+          "priceAmountCents": {
+            "type": "number",
+            "nullable": true,
+            "minimum": 0
+          },
+          "currencyCode": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 3
+          },
+          "pointsPrice": {
+            "type": "number",
+            "nullable": true,
+            "minimum": 0
+          },
+          "loyaltyPoints": {
+            "type": "number",
+            "minimum": 0,
+            "default": 0
+          },
+          "stockCount": {
+            "type": "number",
+            "nullable": true,
+            "minimum": 0
+          },
+          "leftAlert": {
+            "type": "number",
+            "nullable": true,
+            "minimum": 0
+          },
+          "salesStartAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "featuredPos": {
+            "type": "number",
+            "minimum": 0,
+            "default": 0
+          },
+          "isVisible": {
+            "type": "boolean",
+            "default": true
+          }
+        },
+        "required": ["title", "category"]
+      },
+      "UpdateStoreItemDto": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "maxLength": 160
+          },
+          "imageUrl": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 500
+          },
+          "category": {
+            "type": "string",
+            "enum": ["MERCH", "DIGITAL", "EXPERIENCES"]
+          },
+          "quality": {
+            "type": "string",
+            "enum": ["COMMON", "RARE", "EPIC", "LEGENDARY"],
+            "default": "COMMON"
+          },
+          "priceMode": {
+            "type": "string",
+            "enum": ["MONEY", "POINTS"],
+            "default": "MONEY"
+          },
+          "priceAmountCents": {
+            "type": "number",
+            "nullable": true,
+            "minimum": 0
+          },
+          "currencyCode": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 3
+          },
+          "pointsPrice": {
+            "type": "number",
+            "nullable": true,
+            "minimum": 0
+          },
+          "loyaltyPoints": {
+            "type": "number",
+            "minimum": 0,
+            "default": 0
+          },
+          "stockCount": {
+            "type": "number",
+            "nullable": true,
+            "minimum": 0
+          },
+          "leftAlert": {
+            "type": "number",
+            "nullable": true,
+            "minimum": 0
+          },
+          "salesStartAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "featuredPos": {
+            "type": "number",
+            "minimum": 0,
+            "default": 0
+          },
+          "isVisible": {
+            "type": "boolean",
+            "default": true
+          }
+        }
+      },
+      "QuestResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "link": {
+            "type": "string"
+          },
+          "imageUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "rewardPoints": {
+            "type": "number"
+          },
+          "availableAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "featuredPos": {
+            "type": "number"
+          },
+          "isVisible": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "description",
+          "link",
+          "imageUrl",
+          "rewardPoints",
+          "availableAt",
+          "featuredPos",
+          "isVisible"
+        ]
+      },
+      "CreateQuestDto": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "maxLength": 160
+          },
+          "description": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 500
+          },
+          "link": {
+            "type": "string",
+            "maxLength": 2048
+          },
+          "imageUrl": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 500
+          },
+          "rewardPoints": {
+            "type": "number",
+            "minimum": 0,
+            "default": 0
+          },
+          "availableAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "featuredPos": {
+            "type": "number",
+            "minimum": 0,
+            "default": 0
+          },
+          "isVisible": {
+            "type": "boolean",
+            "default": true
+          }
+        },
+        "required": ["title", "link"]
+      },
+      "UpdateQuestDto": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "maxLength": 160
+          },
+          "description": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 500
+          },
+          "link": {
+            "type": "string",
+            "maxLength": 2048
+          },
+          "imageUrl": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 500
+          },
+          "rewardPoints": {
+            "type": "number",
+            "minimum": 0,
+            "default": 0
+          },
+          "availableAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "featuredPos": {
+            "type": "number",
+            "minimum": 0,
+            "default": 0
+          },
+          "isVisible": {
+            "type": "boolean",
+            "default": true
+          }
+        }
+      },
+      "SocialPlatformResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "slug": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          },
+          "icon": {
+            "type": "string",
+            "description": "Brand-icon slug (public/brand-icons/<icon>.svg)."
+          }
+        },
+        "required": ["id", "slug", "label", "icon"]
+      },
+      "ArtistSocialLinkResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "connectBonus": {
+            "type": "number",
+            "description": "Points awarded the first time a member connects this platform."
+          },
+          "sortOrder": {
+            "type": "number"
+          },
+          "isVisible": {
+            "type": "boolean"
+          },
+          "socialPlatform": {
+            "$ref": "#/components/schemas/SocialPlatformResponseDto"
+          }
+        },
+        "required": ["id", "connectBonus", "sortOrder", "isVisible", "socialPlatform"]
+      },
+      "CreateSocialLinkDto": {
+        "type": "object",
+        "properties": {
+          "socialPlatformId": {
+            "type": "string",
+            "description": "SocialPlatform id from the catalog."
+          },
+          "connectBonus": {
+            "type": "number",
+            "minimum": 0,
+            "default": 500
+          },
+          "sortOrder": {
+            "type": "number",
+            "minimum": 0
+          },
+          "isVisible": {
+            "type": "boolean",
+            "default": true
+          }
+        },
+        "required": ["socialPlatformId"]
+      },
+      "UpdateSocialLinkDto": {
+        "type": "object",
+        "properties": {
+          "connectBonus": {
+            "type": "number",
+            "minimum": 0
+          },
+          "sortOrder": {
+            "type": "number",
+            "minimum": 0
+          },
+          "isVisible": {
+            "type": "boolean"
+          }
+        }
+      },
+      "ReferralSettingsResponseDto": {
+        "type": "object",
+        "properties": {
+          "referralEnabled": {
+            "type": "boolean"
+          },
+          "referralRewardPoints": {
+            "type": "number",
+            "minimum": 0
+          }
+        },
+        "required": ["referralEnabled", "referralRewardPoints"]
+      },
+      "UpdateReferralSettingsDto": {
+        "type": "object",
+        "properties": {
+          "referralEnabled": {
+            "type": "boolean"
+          },
+          "referralRewardPoints": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100000
+          }
+        }
+      },
+      "AdminUserResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "avatarUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "role": {
+            "type": "string",
+            "enum": ["USER", "ARTIST_ADMIN"]
+          },
+          "balance": {
+            "type": "number",
+            "description": "Current points balance (sum of the ledger)"
+          },
+          "totalEarned": {
+            "type": "number",
+            "description": "Total points ever earned (sum of positive ledger entries)"
+          },
+          "inventoryCount": {
+            "type": "number"
+          },
+          "referredByEmail": {
+            "type": "string",
+            "nullable": true,
+            "description": "Email of the member who referred this one"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "id",
+          "email",
+          "avatarUrl",
+          "role",
+          "balance",
+          "totalEarned",
+          "inventoryCount",
+          "referredByEmail",
+          "createdAt"
+        ]
+      },
+      "AdjustPointsDto": {
+        "type": "object",
+        "properties": {
+          "amount": {
+            "type": "number",
+            "minimum": -1000000,
+            "maximum": 1000000,
+            "description": "Non-zero; negative deducts points"
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 200,
+            "description": "Reason shown in the ledger"
+          }
+        },
+        "required": ["amount"]
+      },
+      "TransactionEntryDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "amount": {
+            "type": "number",
+            "description": "Signed points delta (negative = spent)"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "WELCOME_BONUS",
+              "REFERRAL_REWARD",
+              "PURCHASE_REWARD",
+              "POINTS_SPEND",
+              "SOCIAL_CONNECT",
+              "ADMIN_ADJUSTMENT",
+              "QUEST_REWARD"
+            ]
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "required": ["id", "createdAt", "amount", "kind", "description"]
+      },
+      "TransactionPageResponseDto": {
+        "type": "object",
+        "properties": {
+          "entries": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TransactionEntryDto"
+            }
+          },
+          "page": {
+            "type": "number"
+          },
+          "totalPages": {
+            "type": "number"
+          },
+          "totalCount": {
+            "type": "number"
+          }
+        },
+        "required": ["entries", "page", "totalPages", "totalCount"]
+      },
+      "GrantInventoryDto": {
+        "type": "object",
+        "properties": {
+          "storeItemId": {
+            "type": "string",
+            "description": "Store item to grant (copied into the member's inventory)"
+          }
+        },
+        "required": ["storeItemId"]
+      },
+      "InventoryItemResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "imageUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "category": {
+            "type": "string",
+            "enum": ["MERCH", "DIGITAL", "EXPERIENCES"]
+          },
+          "quality": {
+            "type": "string",
+            "enum": ["COMMON", "RARE", "EPIC", "LEGENDARY"]
+          },
+          "acquiredAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": ["id", "title", "imageUrl", "category", "quality", "acquiredAt"]
+      },
+      "MemberQuestResponseDto": {
+        "type": "object",
+        "properties": {
+          "questId": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "rewardPoints": {
+            "type": "number"
+          },
+          "status": {
+            "type": "string"
+          }
+        },
+        "required": ["questId", "title", "rewardPoints", "status"]
+      },
+      "SetMemberQuestStatusDto": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": ["NOT_STARTED", "COMPLETED"]
+          }
+        },
+        "required": ["status"]
+      }
+    }
+  }
+}

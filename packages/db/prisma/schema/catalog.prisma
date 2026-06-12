@@ -1,0 +1,55 @@
+// Per-artist store catalog items (STORE section). Any category sells for MONEY
+// or POINTS (artist's choice — no category↔pricing invariant). featuredPos > 0
+// shows the item on Home at that position.
+model ArtistStoreItem {
+  id               String         @id @default(cuid())
+  sectionId        String         @map("section_id")
+  title            String
+  imageUrl         String?        @map("image_url")
+  category         StoreCategory
+  quality          StoreQuality   @default(COMMON)
+  priceMode        StorePriceMode @default(MONEY) @map("price_mode")
+  priceAmountCents Int?           @map("price_amount_cents")
+  currencyCode     String?        @map("currency_code")
+  pointsPrice      Int?           @map("points_price")
+  loyaltyPoints    Int            @default(0) @map("loyalty_points")
+  stockCount       Int?           @map("stock_count")
+  leftAlert        Int?           @map("left_alert")
+  salesStartAt     DateTime?      @map("sales_start_at")
+  featuredPos      Int            @default(0) @map("featured_pos")
+  isVisible        Boolean        @default(true) @map("is_visible")
+  createdAt        DateTime       @default(now()) @map("created_at")
+  updatedAt        DateTime       @updatedAt @map("updated_at")
+
+  section        ArtistHomeSection     @relation(fields: [sectionId], references: [id], onDelete: Cascade)
+  purchases      ArtistPurchase[]
+  inventoryItems ArtistInventoryItem[]
+
+  @@index([sectionId, createdAt])
+  @@index([sectionId, featuredPos])
+  @@map("artist_store_items")
+}
+
+enum StoreCategory {
+  MERCH
+  DIGITAL
+  EXPERIENCES
+
+  @@map("store_category")
+}
+
+enum StoreQuality {
+  COMMON
+  RARE
+  EPIC
+  LEGENDARY
+
+  @@map("store_quality")
+}
+
+enum StorePriceMode {
+  MONEY
+  POINTS
+
+  @@map("store_price_mode")
+}

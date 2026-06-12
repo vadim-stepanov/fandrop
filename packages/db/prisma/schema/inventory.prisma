@@ -1,0 +1,22 @@
+// What a member owns — one row per purchase (1:1). title/imageUrl/category/
+// quality are snapshotted at purchase time so the record stays immutable even if
+// the source store item later changes or is deleted. Read-only user-side in V1
+// (no fulfillment / shipping state — see spec §6).
+model ArtistInventoryItem {
+  id           String        @id @default(cuid())
+  artistUserId String        @map("artist_user_id")
+  purchaseId   String        @unique @map("purchase_id")
+  storeItemId  String?       @map("store_item_id")
+  title        String
+  imageUrl     String?       @map("image_url")
+  category     StoreCategory
+  quality      StoreQuality
+  acquiredAt   DateTime      @default(now()) @map("acquired_at")
+
+  artistUser ArtistUser       @relation(fields: [artistUserId], references: [id], onDelete: Cascade)
+  purchase   ArtistPurchase   @relation(fields: [purchaseId], references: [id], onDelete: Cascade)
+  storeItem  ArtistStoreItem? @relation(fields: [storeItemId], references: [id], onDelete: SetNull)
+
+  @@index([artistUserId, acquiredAt])
+  @@map("artist_inventory_items")
+}

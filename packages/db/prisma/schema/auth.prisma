@@ -1,0 +1,18 @@
+model User {
+  id              String   @id @default(cuid())
+  email           String   @unique
+  // Google account subject id, set when a user signs in with Google (matched to
+  // the existing account by verified email). Null for OTP-only users.
+  googleSub       String?  @unique @map("google_sub")
+  // Uploaded avatar (takes precedence). googleAvatarUrl is the picture from
+  // Google sign-in. Effective avatar = avatarUrl ?? googleAvatarUrl.
+  avatarUrl       String?  @map("avatar_url")
+  googleAvatarUrl String?  @map("google_avatar_url")
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+
+  artistUsers ArtistUser[]
+  auditLogs   AuditLog[]
+
+  @@map("users")
+}

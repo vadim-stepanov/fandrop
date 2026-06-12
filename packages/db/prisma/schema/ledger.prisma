@@ -1,0 +1,33 @@
+// Points ledger — per-membership (ArtistUser) point transactions. A member's
+// balance is SUM(amount); never overwrite a balance directly (ledger rule).
+model ArtistPointsTransaction {
+  id           String                      @id @default(cuid())
+  artistUserId String                      @map("artist_user_id")
+  amount       Int
+  kind         ArtistPointsTransactionKind
+  description  String?
+  // Admin who originated this entry (ADMIN_ADJUSTMENT); null for system writes.
+  adminUserId  String?                     @map("admin_user_id")
+  // Soft-delete from history views (admin tx dialog + public profile). The row
+  // STAYS in the balance SUM — hiding never changes the balance (ledger rule);
+  // balance corrections go through a separate ADMIN_ADJUSTMENT entry.
+  hiddenAt     DateTime?                   @map("hidden_at")
+  createdAt    DateTime                    @default(now()) @map("created_at")
+
+  artistUser ArtistUser @relation(fields: [artistUserId], references: [id], onDelete: Cascade)
+
+  @@index([artistUserId, createdAt])
+  @@map("artist_points_transactions")
+}
+
+enum ArtistPointsTransactionKind {
+  WELCOME_BONUS
+  REFERRAL_REWARD
+  PURCHASE_REWARD
+  POINTS_SPEND
+  SOCIAL_CONNECT
+  ADMIN_ADJUSTMENT
+  QUEST_REWARD
+
+  @@map("artist_points_transaction_kind")
+}

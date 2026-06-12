@@ -1,0 +1,21 @@
+{
+  "name": "fandrop",
+  "private": true,
+  "packageManager": "pnpm@11.5.1",
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "test": "turbo run test",
+    "typecheck": "turbo run typecheck",
+    "cli": "pnpm --filter @fandrop/api-admin cli",
+    "prepare": "husky"
+  },
+  "devDependencies": {
+    "husky": "^9.1.7",
+    "lint-staged": "^17.0.7",
+    "prettier": "^3.8.3",
+    "turbo": "^2.9.16",
+    "typescript": "^5.9.3"
+  }
+}

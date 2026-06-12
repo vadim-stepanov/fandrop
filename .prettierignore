@@ -1,0 +1,11 @@
+node_modules
+dist
+.next
+.turbo
+coverage
+pnpm-lock.yaml
+packages/db/src/generated
+**/src/api/generated
+.husky/_
+*.tsbuildinfo
+**/routeTree.gen.ts

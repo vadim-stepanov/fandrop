@@ -1,0 +1,69 @@
+model Artist {
+  id                   String   @id @default(cuid())
+  slug                 String   @unique
+  name                 String
+  logoUrl              String?  @map("logo_url")
+  referralEnabled      Boolean  @default(false) @map("referral_enabled")
+  referralRewardPoints Int      @default(0) @map("referral_reward_points")
+  // Points granted to a fan on first join. Stored now; the awarding flow is
+  // wired in the membership-bonuses slice.
+  signupBonusPoints    Int      @default(0) @map("signup_bonus_points")
+  createdAt            DateTime @default(now()) @map("created_at")
+  updatedAt            DateTime @updatedAt @map("updated_at")
+
+  artistUsers       ArtistUser[]
+  adminGrants       ArtistAdminGrant[]
+  homeSections      ArtistHomeSection[]
+  leaderboardConfig ArtistLeaderboardConfig?
+  socialLinks       ArtistSocialLink[]
+  auditLogs         AuditLog[]
+
+  @@map("artists")
+}
+
+model ArtistUser {
+  id                     String     @id @default(cuid())
+  artistId               String     @map("artist_id")
+  userId                 String     @map("user_id")
+  role                   ArtistRole @default(USER)
+  hasSeenOnboarding      Boolean    @default(false) @map("has_seen_onboarding")
+  referralCode           String?    @unique @map("referral_code")
+  referredByArtistUserId String?    @map("referred_by_artist_user_id")
+  createdAt              DateTime   @default(now()) @map("created_at")
+  updatedAt              DateTime   @updatedAt @map("updated_at")
+
+  artist             Artist                       @relation(fields: [artistId], references: [id], onDelete: Cascade)
+  user               User                         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  pointsTransactions ArtistPointsTransaction[]
+  purchases          ArtistPurchase[]
+  inventoryItems     ArtistInventoryItem[]
+  socialConnections  ArtistUserSocialConnection[]
+  userQuests         ArtistUserQuest[]
+  referredBy         ArtistUser?                  @relation("ArtistUserReferrals", fields: [referredByArtistUserId], references: [id], onDelete: SetNull)
+  referrals          ArtistUser[]                 @relation("ArtistUserReferrals")
+
+  @@unique([artistId, userId])
+  @@index([userId])
+  @@index([referredByArtistUserId])
+  @@map("artist_users")
+}
+
+model ArtistAdminGrant {
+  id        String   @id @default(cuid())
+  artistId  String   @map("artist_id")
+  email     String
+  createdAt DateTime @default(now()) @map("created_at")
+
+  artist Artist @relation(fields: [artistId], references: [id], onDelete: Cascade)
+
+  @@unique([artistId, email])
+  @@index([email])
+  @@map("artist_admin_grants")
+}
+
+enum ArtistRole {
+  USER
+  ARTIST_ADMIN
+
+  @@map("artist_role")
+}

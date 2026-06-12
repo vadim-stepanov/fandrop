@@ -1,0 +1,55 @@
+// Global catalog of social platforms (app-wide). Artists enable a subset via
+// ArtistSocialLink. `icon` = brand-icon slug (public/brand-icons/<icon>.svg).
+model SocialPlatform {
+  id        String   @id @default(cuid())
+  slug      String   @unique
+  label     String
+  icon      String
+  isActive  Boolean  @default(true) @map("is_active")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  artistLinks ArtistSocialLink[]
+
+  @@map("social_platforms")
+}
+
+// A platform the artist offers (profile + leaderboard), with the points awarded
+// the first time a member connects it (per-platform). isVisible=false ⇒ hidden
+// from public API (admin-only), per the isVisible invariant.
+model ArtistSocialLink {
+  id               String   @id @default(cuid())
+  artistId         String   @map("artist_id")
+  socialPlatformId String   @map("social_platform_id")
+  connectBonus     Int      @default(500) @map("connect_bonus")
+  sortOrder        Int      @default(0) @map("sort_order")
+  isVisible        Boolean  @default(true) @map("is_visible")
+  createdAt        DateTime @default(now()) @map("created_at")
+  updatedAt        DateTime @updatedAt @map("updated_at")
+
+  artist         Artist                       @relation(fields: [artistId], references: [id], onDelete: Cascade)
+  socialPlatform SocialPlatform               @relation(fields: [socialPlatformId], references: [id], onDelete: Restrict)
+  connections    ArtistUserSocialConnection[]
+
+  @@unique([artistId, socialPlatformId])
+  @@index([artistId, sortOrder])
+  @@map("artist_social_links")
+}
+
+// A member's connected handle/URL for an artist's social link. One per link
+// (unique) — the first connect awards the link's connectBonus (SOCIAL_CONNECT).
+model ArtistUserSocialConnection {
+  id                  String   @id @default(cuid())
+  artistUserId        String   @map("artist_user_id")
+  artistSocialLinkId  String   @map("artist_social_link_id")
+  externalHandleOrUrl String   @map("external_handle_or_url")
+  connectedAt         DateTime @default(now()) @map("connected_at")
+  createdAt           DateTime @default(now()) @map("created_at")
+
+  artistUser       ArtistUser       @relation(fields: [artistUserId], references: [id], onDelete: Cascade)
+  artistSocialLink ArtistSocialLink @relation(fields: [artistSocialLinkId], references: [id], onDelete: Cascade)
+
+  @@unique([artistUserId, artistSocialLinkId])
+  @@index([artistSocialLinkId])
+  @@map("artist_user_social_connections")
+}

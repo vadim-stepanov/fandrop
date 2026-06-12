@@ -1,0 +1,43 @@
+{
+  "name": "@fandrop/db",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "prisma generate && tsup",
+    "generate": "prisma generate",
+    "migrate": "prisma migrate dev",
+    "migrate:deploy": "prisma migrate deploy",
+    "migrate:status": "prisma migrate status",
+    "db:seed": "prisma db seed",
+    "studio": "prisma studio",
+    "format": "prisma format",
+    "validate": "prisma validate",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@prisma/adapter-pg": "^7.8.0",
+    "@prisma/client": "^7.8.0"
+  },
+  "devDependencies": {
+    "@fandrop/typescript-config": "workspace:*",
+    "@types/node": "^24.12.4",
+    "prisma": "^7.8.0",
+    "tsup": "^8.5.1",
+    "tsx": "^4.22.4",
+    "typescript": "^5.9.3"
+  }
+}

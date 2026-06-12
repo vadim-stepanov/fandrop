@@ -1,0 +1,38 @@
+{
+  "name": "@fandrop/web-public",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint",
+    "format": "prettier --write \"src/**/*.{ts,tsx,css}\"",
+    "typecheck": "tsc --noEmit",
+    "test:e2e": "playwright test"
+  },
+  "dependencies": {
+    "@fandrop/events": "workspace:*",
+    "lucide-react": "^1.17.0",
+    "motion": "^12.40.0",
+    "next": "16.2.7",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "react-easy-crop": "^5.5.7",
+    "socket.io-client": "^4.8.1",
+    "sonner": "^2.0.7"
+  },
+  "devDependencies": {
+    "@fandrop/eslint-config": "workspace:*",
+    "@fandrop/typescript-config": "workspace:*",
+    "@playwright/test": "^1.60.0",
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^24.12.4",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9.18.0",
+    "prettier": "^3.8.3",
+    "tailwindcss": "^4",
+    "typescript": "^5.9.3"
+  }
+}

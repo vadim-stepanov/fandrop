@@ -1,0 +1,114 @@
+model ArtistHomeSection {
+  id        String               @id @default(cuid())
+  artistId  String               @map("artist_id")
+  key       ArtistHomeSectionKey
+  isVisible Boolean              @default(true) @map("is_visible")
+  sortOrder Int                  @default(0) @map("sort_order")
+  title     String?
+  subtitle  String?
+  createdAt DateTime             @default(now()) @map("created_at")
+  updatedAt DateTime             @updatedAt @map("updated_at")
+
+  artist        Artist               @relation(fields: [artistId], references: [id], onDelete: Cascade)
+  ruleItems     ArtistRuleItem[]
+  promoVariants ArtistPromoVariant[]
+  partnerItems  ArtistPartnerItem[]
+  storeItems    ArtistStoreItem[]
+  questItems    ArtistQuest[]
+
+  @@unique([artistId, key])
+  @@index([artistId, sortOrder])
+  @@map("artist_home_sections")
+}
+
+enum ArtistHomeSectionKey {
+  PROMO
+  RULES
+  STORE
+  LEADERBOARD
+  PARTNERS
+  QUESTS
+
+  @@map("artist_home_section_key")
+}
+
+// Items of a RULES section (numbered how-it-works steps).
+model ArtistRuleItem {
+  id         String   @id @default(cuid())
+  sectionId  String   @map("section_id")
+  title      String
+  body       String?
+  stepNumber Int      @default(0) @map("step_number")
+  isVisible  Boolean  @default(true) @map("is_visible")
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
+
+  section ArtistHomeSection @relation(fields: [sectionId], references: [id], onDelete: Cascade)
+
+  @@index([sectionId, stepNumber])
+  @@map("artist_rule_items")
+}
+
+// Variants of a PROMO section. At most one isActive per section (enforced in
+// the service); the active variant renders as the public hero. Media tier:
+// anon viewers see bannerUrlAnon; authed viewers see videoUrl else bannerUrl.
+model ArtistPromoVariant {
+  id            String    @id @default(cuid())
+  sectionId     String    @map("section_id")
+  name          String
+  title         String?
+  subtitle      String?
+  ctaLabel      String?   @map("cta_label")
+  ctaUrl        String?   @map("cta_url")
+  ctaText       String?   @map("cta_text")
+  bannerUrl     String?   @map("banner_url")
+  videoUrl      String?   @map("video_url")
+  bannerUrlAnon String?   @map("banner_url_anon")
+  // Short label rendered above the countdown — only shown when timerEndsAt is set.
+  eyebrow       String?
+  timerEndsAt   DateTime? @map("timer_ends_at")
+  isActive      Boolean   @default(false) @map("is_active")
+  createdAt     DateTime  @default(now()) @map("created_at")
+  updatedAt     DateTime  @updatedAt @map("updated_at")
+
+  section ArtistHomeSection @relation(fields: [sectionId], references: [id], onDelete: Cascade)
+
+  @@index([sectionId, createdAt])
+  @@map("artist_promo_variants")
+}
+
+// Items of a PARTNERS section — partner/sponsor logos with external links.
+model ArtistPartnerItem {
+  id          String   @id @default(cuid())
+  sectionId   String   @map("section_id")
+  name        String
+  logoUrl     String?  @map("logo_url")
+  externalUrl String?  @map("external_url")
+  isVisible   Boolean  @default(true) @map("is_visible")
+  sortOrder   Int      @default(0) @map("sort_order")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  section ArtistHomeSection @relation(fields: [sectionId], references: [id], onDelete: Cascade)
+
+  @@index([sectionId, sortOrder])
+  @@map("artist_partner_items")
+}
+
+// Per-artist config for the LEADERBOARD home section's collapse/expand display.
+// Singleton per artist (artistId @unique). topExpandedCount = rows shown while
+// collapsed; visibleUserCount = rows when expanded; expandedByDefault = initial
+// open state.
+model ArtistLeaderboardConfig {
+  id                String   @id @default(cuid())
+  artistId          String   @unique @map("artist_id")
+  topExpandedCount  Int      @default(3) @map("top_expanded_count")
+  visibleUserCount  Int      @default(10) @map("visible_user_count")
+  expandedByDefault Boolean  @default(false) @map("expanded_by_default")
+  createdAt         DateTime @default(now()) @map("created_at")
+  updatedAt         DateTime @updatedAt @map("updated_at")
+
+  artist Artist @relation(fields: [artistId], references: [id], onDelete: Cascade)
+
+  @@map("artist_leaderboard_configs")
+}

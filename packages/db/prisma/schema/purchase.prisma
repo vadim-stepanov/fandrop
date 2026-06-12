@@ -1,0 +1,22 @@
+// A completed Store purchase. POINTS purchases debit the points ledger; MONEY
+// purchases are mocked — no real payment gateway (spec §5). 1:1 with an
+// ArtistInventoryItem written in the same transaction.
+model ArtistPurchase {
+  id             String         @id @default(cuid())
+  artistUserId   String         @map("artist_user_id")
+  storeItemId    String?        @map("store_item_id")
+  priceMode      StorePriceMode @map("price_mode")
+  // POINTS branch: points debited. MONEY branch: mock amount + currency.
+  pointsSpent    Int?           @map("points_spent")
+  amountCents    Int?           @map("amount_cents")
+  currencyCode   String?        @map("currency_code")
+  loyaltyAwarded Int            @default(0) @map("loyalty_awarded")
+  createdAt      DateTime       @default(now()) @map("created_at")
+
+  artistUser    ArtistUser           @relation(fields: [artistUserId], references: [id], onDelete: Cascade)
+  storeItem     ArtistStoreItem?     @relation(fields: [storeItemId], references: [id], onDelete: SetNull)
+  inventoryItem ArtistInventoryItem?
+
+  @@index([artistUserId, createdAt])
+  @@map("artist_purchases")
+}
